@@ -9,7 +9,7 @@ const flash = require("connect-flash");
 const passport = require("passport");
 
 //passport configuration
-require("./middleware/auth");
+require("./config/passport");
 
 const app = express();
 

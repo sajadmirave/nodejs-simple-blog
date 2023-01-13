@@ -6,6 +6,7 @@ second is validate with scema
 and last layer is working with yup
 */
 const Yup = require("yup");
+const passport = require("passport");
 
 //custom error message for yup
 let YupErrMessage = {
@@ -43,7 +44,38 @@ const getLoginPage = (req, res) => {
   res.render("login", {
     // "success_singup" is key for message
     message: req.flash("success_singup"),
+
+    //passport error authentication
+    // key passport error = "error"
+    error: req.flash("error"),
   });
+};
+
+const handleLogin = (req, res, next) => {
+  passport.authenticate("local", {
+    successRedirect: "/dashboard",
+    failureRedirect: "/user/login",
+    /*
+    title: error message (flash)
+    @Decs:
+    if true the message we set in auth.js will show 
+    the message in req.flash with key = "error"
+    on the top, on getLoginPage we send error message to ejs file
+    */
+    failureFlash: true,
+  })(req, res, next);
+};
+
+const handleLogout = (req, res, next) => {
+  // its passport function for delete auth cookie
+  // req.logout();
+  req.logOut(function (err) {
+    if (err) return next(err);
+    res.redirect("/");
+  });
+  // set logout success message
+  req.flash("success_logout", "Logout Successfuly...");
+  res.redirect("/user/login");
 };
 
 /*
@@ -124,4 +156,6 @@ module.exports = {
   getLoginPage,
   getSingupPage,
   addUser,
+  handleLogin,
+  handleLogout,
 };

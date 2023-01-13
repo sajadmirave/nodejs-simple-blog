@@ -7,7 +7,11 @@ const {
   getLoginPage,
   getSingupPage,
   addUser,
+  handleLogin,
+  handleLogout,
 } = require("../controler/user-controler");
+
+const { authenticated } = require("../middleware/auth");
 
 /*
 @desc login page
@@ -17,6 +21,10 @@ check user data in here
 @path /user/login
 */
 router.get("/user/login", getLoginPage);
+
+router.post("/user/login", handleLogin);
+
+router.get("/user/logout", authenticated, handleLogout);
 
 /*
 @desc singup page

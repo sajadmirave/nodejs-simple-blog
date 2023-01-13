@@ -18,9 +18,9 @@
       <p style="color: #fff"><%= message %></p>
       <p class="msg">Welcome back</p>
       <div class="form">
-        <form>
+        <form method="post" action="/user/login">
           <input
-            type="text"
+            type="email"
             name="email"
             placeholder="Username"
             class="text"
@@ -33,11 +33,13 @@
             placeholder="••••••••••••••"
             class="password"
           /><br />
-          <a href="#" class="btn-login" id="do-login">Login</a>
-          <button type="submit">Login</button>
+          <!-- <a href="#" class="btn-login" id="do-login">Login</a> -->
+          <button class="btn-login" type="submit">Login</button>
           <a href="#" class="forgot">Forgot?</a>
         </form>
       </div>
+      <h4 style="color: #fb595d"><%= error %></h4>
+
     </section>
 
     <!-- partial -->
