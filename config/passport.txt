@@ -1,2 +1,4 @@
 the passport set in session 
 if user loged in, the passport create cookie in user broswer
+
+

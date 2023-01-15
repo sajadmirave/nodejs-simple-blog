@@ -53,17 +53,28 @@ const getLoginPage = (req, res) => {
 
 const handleLogin = (req, res, next) => {
   passport.authenticate("local", {
-    successRedirect: "/dashboard",
+    // successRedirect: "/dashboard",
     failureRedirect: "/user/login",
     /*
     title: error message (flash)
     @Decs:
-    if true the message we set in auth.js will show 
+    if true the message we set in passport.js will show 
     the message in req.flash with key = "error"
     on the top, on getLoginPage we send error message to ejs file
     */
     failureFlash: true,
   })(req, res, next);
+};
+
+const handleRememberMe = (req, res) => {
+  if (req.body.rememberMe) {
+    // search in google = conver miliseconds to time
+    req.session.cookie.originalMaxAge = 604800000; //7 day
+  } else {
+    req.session.cookie.expire = null;
+  }
+
+  res.redirect("/dashboard");
 };
 
 const handleLogout = (req, res, next) => {
@@ -102,9 +113,10 @@ send user data to database
 @path /user/singup
 */
 const addUser = async (req, res) => {
+  // get data from url
   const { email, password, confirmpassword } = req.body;
 
-  //find email for checking user singup true or not
+  //find email for checking user singuped or not
   let userEmail = await User.findOne({ email });
 
   const createNewUser = async () => {
@@ -126,7 +138,7 @@ const addUser = async (req, res) => {
       /*
           @title: Flash
           @Desc: 
-          set flash for showing message when user successfuly singup
+          set flash for showing message when user successfuly singuped
           flash is save in cookie
           now in path: /user/singup method:get,
           we are sending message to client...
@@ -158,4 +170,5 @@ module.exports = {
   addUser,
   handleLogin,
   handleLogout,
+  handleRememberMe,
 };

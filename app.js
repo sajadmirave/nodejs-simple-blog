@@ -3,8 +3,9 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 require("dotenv/config");
-
+const mongoose = require("mongoose");
 const session = require("express-session");
+const MongoStore = require("connect-mongo")(session);
 const flash = require("connect-flash");
 const passport = require("passport");
 
@@ -26,8 +27,10 @@ app.use(
     name: "sajad session",
     resave: false,
     saveUninitialized: false,
+
     // after 60sec the cookie gun...
-    cookie: { maxAge: 60000 },
+    // cookie: { maxAge: 600000000000000000},
+    store: new MongoStore({ mongooseConnection: mongoose.connection }),
   })
 );
 // passport

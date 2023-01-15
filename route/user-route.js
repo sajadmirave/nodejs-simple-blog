@@ -9,6 +9,7 @@ const {
   addUser,
   handleLogin,
   handleLogout,
+  handleRememberMe
 } = require("../controler/user-controler");
 
 const { authenticated } = require("../middleware/auth");
@@ -22,7 +23,7 @@ check user data in here
 */
 router.get("/user/login", getLoginPage);
 
-router.post("/user/login", handleLogin);
+router.post("/user/login", handleLogin , handleRememberMe);
 
 router.get("/user/logout", authenticated, handleLogout);
 

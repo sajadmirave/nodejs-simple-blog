@@ -11,7 +11,9 @@ const { authenticated } = require("../middleware/auth");
 @path /dashboard
 */
 router.get("/dashboard", authenticated, (req, res) => {
-  res.render("dashboard", {});
+  res.render("dashboard", {
+    user: req.user.email,
+  });
 });
 
 module.exports = router;
