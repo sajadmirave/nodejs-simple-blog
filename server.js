@@ -1,4 +1,5 @@
 const app = require("./app");
+const debug = require("debug")("http");
 require("dotenv/config");
 
 //with this pakage we can connect into mongodb database
@@ -15,7 +16,7 @@ mongoose
   .then(() => {
     console.log("database connected...");
     //create server
-    app.listen(port, () => console.log(`server is running on port ${port}`));
+    app.listen(port, () => debug(`server is running on port ${port}`));
   })
   //catch error
   .catch((err) => console.log(err));

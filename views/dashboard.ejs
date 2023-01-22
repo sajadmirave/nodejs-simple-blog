@@ -10,9 +10,18 @@
     <h4>Hello <%= user %></h4>
 
     <form action="/codeSnipet" method="post">
+     
       <input type="text" name="postcode" id="" />
       <button>send</button>
       <a href="/user/logout">logout</a>
+      
     </form>
+    <% if(admin == false) %><% { %>
+        
+      <a href="/admin">admin</a>
+      
+      <% } %>
+      
+      <%= admin %> 
   </body>
 </html>

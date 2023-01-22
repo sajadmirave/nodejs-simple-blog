@@ -16,10 +16,13 @@ const userScema = new mongoose.Schema({
     min: 4,
     max: 12,
   },
-
   joinDate: {
     type: Date,
     default: Date.now,
+  },
+  role: {
+    type: String,
+    default: "user",
   },
 });
 

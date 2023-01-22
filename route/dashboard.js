@@ -11,8 +11,17 @@ const { authenticated } = require("../middleware/auth");
 @path /dashboard
 */
 router.get("/dashboard", authenticated, (req, res) => {
+  if (req.session.passport.user.role === "admin") {
+    res.render("dashboard", {
+      user: req.user.email,
+      admin: true,
+    });
+    return;
+  }
+
   res.render("dashboard", {
     user: req.user.email,
+    admin: false,
   });
 });
 
